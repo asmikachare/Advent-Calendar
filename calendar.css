@@ -1,0 +1,159 @@
+/* General body setup */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fef4f4; /* Soft pink background for a festive vibe */
+    color: #333;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent unnecessary horizontal scrolling */
+  }
+  
+  /* Styling for the header image */
+  .header {
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  .header-image {
+    max-width: 100%; /* Makes the image responsive for all screen sizes */
+    height: auto; /* Keeps the image's aspect ratio intact */
+    display: block;
+    margin: 0 auto; /* Centers the image */
+  }
+  
+  /* Calendar layout with grid styling */
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Creates 6 equal columns */
+    gap: 10px; /* Space between calendar boxes */
+    padding: 20px;
+    max-width: 860px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 15px; /* Smooth rounded edges */
+    border: 5px solid #006d77; /* Green border for a festive touch */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    position: relative;
+  }
+  
+  /* Design for individual day boxes */
+  .day-box {
+    background-color: #fdf6f0; /* Beige background for a clean festive look */
+    color: #d62828; /* Red text for day numbers */
+    border: 2px solid #006d77; /* Green border around each box */
+    height: 130px; /* Standard height for boxes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 300; /* Lighter font weight for numbers */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds depth */
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s; /* Smooth animations */
+  }
+  
+  .day-box:hover {
+    transform: scale(1.1); /* Grows slightly when hovered over */
+    background-color: #ffe5d9; /* Light pink background on hover */
+  }
+  
+  /* Styling for opened boxes to show messages */
+  .day-box.opened {
+    background-color: #d62828; /* Red background for opened boxes */
+    color: #fff; /* White text for better contrast */
+    cursor: default; /* No interaction for opened boxes */
+    transform: none;
+    box-shadow: none;
+    font-family: 'Georgia', serif; /* Elegant font for messages */
+    font-size: 1rem; /* Slightly smaller text for the message */
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.4; /* Better spacing for longer messages */
+  }
+  
+  /* Special styling for Day 25 */
+  .day-box.special-box {
+    grid-column: span 6; /* Makes it stretch across the entire row */
+    height: 130px; /* Consistent height with other boxes */
+    background-color: #fdf6f0;
+    color: #d62828;
+    border: 2px solid #006d77; /* Green border for emphasis */
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .day-box.special-box:hover {
+    transform: scale(1.1); /* Same hover effect as other boxes */
+    background-color: #ffe5d9; /* Matches the hover color of other boxes */
+  }
+  
+  /* Removes any extra margin caused by the special box */
+  .calendar .special-box:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Pop-up card styling for messages */
+  .message-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Initially hidden */
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #d62828; /* Red for the card background */
+    color: #fff; /* White text for readability */
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.5; /* Spacing for readability */
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Adds depth */
+    z-index: 1000; /* Places it above other content */
+    transition: transform 0.3s ease-in-out;
+    visibility: hidden; /* Hidden until triggered */
+  }
+  
+  .message-card.show {
+    transform: translate(-50%, -50%) scale(1); /* Displays the card with a smooth animation */
+    visibility: visible;
+  }
+  
+  /* Adjustments for smaller screens */
+  @media (max-width: 600px) {
+    .calendar {
+      grid-template-columns: repeat(3, 1fr); /* Reduces columns for smaller devices */
+    }
+  
+    .day-box {
+      height: 100px; /* Shorter height for better fit */
+      font-size: 1.2rem; /* Smaller font for compact layout */
+    }
+  
+    .day-box.special-box {
+      grid-column: span 3; /* Spans all columns in smaller layout */
+      height: 100px;
+    }
+  
+    .message-card {
+      font-size: 1rem; /* Reduces font size for message cards */
+    }
+  }
+  
+  .message-card p {
+    font-family: 'Times New Roman', serif; /* Matches overall elegant theme */
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 0;
+    text-align: center; /* Keeps text centered */
+  }
+  

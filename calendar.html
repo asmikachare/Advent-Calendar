@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advent Calendar</title>
+  <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+  <div class="header">
+    <img src="images/christmas.jpg" alt="Christmas Advent Calendar" class="header-image">
+  </div>
+  <div class="calendar">
+
+  </div>
+  <div class="message-card" id="messageCard">
+    <p class="message-text" id="messageText"></p>
+    <img id="messageImage" style="display: none; max-width: 100%; border-radius: 10px; margin-top: 10px;" />
+    <p id="subMessageText" style="display: none; margin-top: 10px; font-family: 'Times New Roman', serif; font-size: 1.2rem; color: #fff; text-align: center;"></p>
+  </div>
+  <script>
+    // Define personalized messages for each friend
+    const friendMessages = {
+        friend1: [
+        "message 1",
+        "message 2",
+        "message 3",
+        {image: "images/img.jpg",
+          subMessage: "you can also add images:)."
+        },
+        "message 4"
+        // the rest of the messages
+      ],
+    
+      friend2: [
+        //messages
+      ],
+    
+      friend3: [
+        //messages
+      ]
+    
+      //can add more friends!
+
+    };
+
+    // Get the friend's name from the URL query parameter
+    const params = new URLSearchParams(window.location.search);
+    const friend = params.get('friend')?.toLowerCase(); // Handle case-insensitivity
+
+    // Validate the 'friend' parameter
+    if (!friend || !friendMessages[friend]) {
+      document.body.innerHTML = `
+        <h1>Access Denied</h1>
+        <p>Please use a valid personalized link to access your advent calendar.</p>
+      `;
+    } else {
+      // Log the friend's name for debugging
+      console.log(`Welcome, ${friend}! Loading your personalized calendar...`);
+
+      // Dynamically generate the calendar
+      const calendar = document.querySelector('.calendar');
+      const messageCard = document.getElementById('messageCard');
+      const messageText = document.getElementById('messageText');
+      const messageImage = document.getElementById('messageImage');
+      const subMessageText = document.getElementById('subMessageText');
+      const messages = friendMessages[friend];
+
+      // Generate calendar days (1-25)
+      for (let i = 1; i <= 25; i++) {
+        const dayBox = document.createElement('div');
+        dayBox.textContent = i;
+        dayBox.classList.add('day-box');
+
+        // Special styling for Day 25
+        if (i === 25) {
+          dayBox.classList.add('special-box');
+        }
+
+        dayBox.addEventListener('click', function () {
+          // Show the message for the corresponding day
+          const message = messages[i - 1] || "Happy Holidays! 🎄";
+
+          if (typeof message === "object" && message.image) {
+            // Handle image and sub-message
+            messageText.style.display = "none";
+            messageImage.style.display = "block";
+            messageImage.src = message.image;
+            subMessageText.style.display = "block";
+            subMessageText.textContent = message.subMessage || "";
+          } else {
+            // Handle text-only message
+            messageText.style.display = "block";
+            messageText.textContent = message;
+            messageImage.style.display = "none";
+            subMessageText.style.display = "none";
+          }
+
+          messageCard.classList.add('show');
+        });
+
+        calendar.appendChild(dayBox);
+      }
+
+      // Hide message card when clicked
+      messageCard.addEventListener('click', () => {
+        messageCard.classList.remove('show');
+      });
+    }
+  </script>
+</body>
+</html>
+
